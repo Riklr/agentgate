@@ -263,3 +263,4 @@ USDC cost per run: ~$0.03 (3 x $0.01 refunds).
 **Gas wallet settlement lock:** When Redis is available, concurrent `settleViaGasWallet` calls are serialized via a Redis lock (`key0:settle-lock:{prefix}`, TTL 60s) — safe across multiple instances. Without Redis, falls back to an in-process promise queue (single instance only).
 
 **Sorted set atomicity:** The `key0:paid` sorted set is updated inside the same Lua script as the state transition — both the hash write and the ZADD/ZREM are atomic. A process crash cannot leave a PAID record outside the sorted set where the refund cron would never find it.
+
